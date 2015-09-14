@@ -8,16 +8,27 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController {
+let DELAY_SECONDS: Double = 1;
+
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBOutlet weak var tableView: UITableView!
     
     var tweets: [Tweet]?
+    var refreshControl: UIRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+        
         TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
             self.tweets = tweets
+            self.tableView.reloadData()
         })
     }
 
@@ -28,6 +39,56 @@ class TweetsViewController: UIViewController {
     
     @IBAction func onLogout(sender: AnyObject) {
         User.currentUser?.logout()
+    }
+    
+    func onRefresh() {
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
+            self.refreshControl.endRefreshing()
+            self.tweets = tweets
+            self.tableView.reloadData()
+        })
+    }
+    
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+        var tweet = tweets![indexPath.row] as Tweet
+        
+        var url = tweet.user?.profileImageUrl
+
+        if url != nil {
+            cell.profileImageView.setImageWithURLRequest(NSURLRequest(URL: NSURL(string: url!)!), placeholderImage: nil, success: { (NSURLRequest, NSHTTPURLResponse, UIImage) -> Void in
+                cell.profileImageView.image = UIImage
+            }) { (NSURLRequest, NSHTTPURLResponse, NSError) -> Void in
+                println("Error setting tweet user profile image")
+            }
+        }
+        
+        cell.nameLabel.text = tweet.user?.name
+        cell.screennameLabel.text = "@\(tweet.user!.screenname!)"
+        cell.tweetTextLabel.text = tweet.text
+        
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "h:mma"
+        cell.timestampLabel.text = formatter.stringFromDate(tweet.createdAt!)
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let movies = tweets {
+            return tweets!.count
+        } else {
+            return 0
+        }
     }
 
     /*

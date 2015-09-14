@@ -24,6 +24,16 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         return Static.instance
     }
     
+    func update(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        POST("1.1/statuses/update.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println("tweet received")
+            completion(tweet: response as? Tweet, error: nil)
+        }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            println("error posting tweet: \(error)")
+            completion(tweet: nil, error: error)
+        })
+    }
+    
     func homeTimelineWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
         GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             //                println("home timeline: \(response)")

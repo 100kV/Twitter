@@ -459,6 +459,9 @@
                                 <state key="normal" image="reply.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="Zrb-p7-bYu" kind="modal" identifier="Reply from Details" id="9Fc-1b-fQy"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -481,7 +484,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZqJ-Fi-uIn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2107" y="1036"/>
+            <point key="canvasLocation" x="1627" y="1068"/>
         </scene>
     </scenes>
     <resources>
@@ -496,6 +499,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="5XE-ai-Wus"/>
+        <segue reference="9Fc-1b-fQy"/>
     </inferredMetricsTieBreakers>
 </document>

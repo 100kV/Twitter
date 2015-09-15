@@ -9,17 +9,21 @@
 import UIKit
 
 class Tweet: NSObject {
+    var id: Int?
     var user: User?
     var text: String?
     var createdAtString: String?
     var createdAt: NSDate?
+    var favorited: Bool?
     var dictionary: NSDictionary
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
+        id = dictionary["id"] as? Int
         user = User(dictionary: dictionary["user"] as! NSDictionary)
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String
+        favorited = dictionary["favorited"] as? Bool
         
         var formatter = NSDateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"

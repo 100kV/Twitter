@@ -14,6 +14,9 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var screennameLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var favoritedButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var replyButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,5 +28,4 @@ class TweetCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

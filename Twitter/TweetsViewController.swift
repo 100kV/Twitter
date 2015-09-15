@@ -21,6 +21,8 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
 
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.estimatedRowHeight = 88.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -75,6 +77,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         cell.nameLabel.text = tweet.user?.name
         cell.screennameLabel.text = "@\(tweet.user!.screenname!)"
         cell.tweetTextLabel.text = tweet.text
+        if (tweet.favorited == true) {
+            cell.favoritedButton.setImage(UIImage(named: "favorite_on.png"), forState: UIControlState.Normal)
+        }
+        cell.favoritedButton.tag = indexPath.row
         
         var formatter = NSDateFormatter()
         formatter.dateFormat = "h:mma"
@@ -91,6 +97,21 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
 
+    @IBAction func onClickFavoritedButton(sender: AnyObject) {
+        let favoritedButton = sender as! UIButton
+        var tweet = tweets![favoritedButton.tag] as Tweet
+        var params = ["id": tweet.id!]
+        
+        if ((tweet.favorited) == true) {
+            TwitterClient.sharedInstance.favoritesDestroy(params, completion: { (tweet, error) -> () in
+                favoritedButton.setImage(UIImage(named: "favorite.png"), forState: UIControlState.Normal)
+            })
+        } else {
+            TwitterClient.sharedInstance.favoritesCreate(params, completion: { (tweet, error) -> () in
+                favoritedButton.setImage(UIImage(named: "favorite_on.png"), forState: UIControlState.Normal)
+            })
+        }
+    }
     /*
     // MARK: - Navigation
 

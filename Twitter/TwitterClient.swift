@@ -27,6 +27,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     func favoritesDestroy(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
         POST("1.1/favorites/destroy.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             println("tweet unfavorited")
+            let tweet = Tweet(dictionary: response as! NSDictionary)
             completion(tweet: response as? Tweet, error: nil)
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("error unfavoriting tweet: \(error)")
@@ -37,9 +38,34 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     func favoritesCreate(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
         POST("1.1/favorites/create.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             println("tweet favorited")
-            completion(tweet: response as? Tweet, error: nil)
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("error favoriting tweet: \(error)")
+                completion(tweet: nil, error: error)
+        })
+    }
+    
+    func statusesRetweets(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        var id: Int? = params!["id"] as? Int
+        POST("1.1/statuses/retweet/\(id!).json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println("retweet received")
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error retweeting: \(error)")
+                completion(tweet: nil, error: error)
+        })
+    }
+    
+    func statusesDestroy(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
+        var id: Int? = params!["id"] as? Int
+        POST("1.1/statuses/destroy/\(id!).json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            println("tweet destroyed")
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error destroying tweet: \(error)")
                 completion(tweet: nil, error: error)
         })
     }
@@ -47,7 +73,8 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     func update(params: NSDictionary?, completion: (tweet: Tweet?, error: NSError?) -> ()) {
         POST("1.1/statuses/update.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             println("tweet received")
-            completion(tweet: response as? Tweet, error: nil)
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            completion(tweet: tweet, error: nil)
         }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
             println("error posting tweet: \(error)")
             completion(tweet: nil, error: error)

@@ -18,6 +18,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var tweetBarButtonItem: UIBarButtonItem!
     
     lazy var characterCountLabel:UILabel = UILabel()
+    var replyTweet: Tweet?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,13 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
         profileImageView.setImageWithURL(NSURL(string: User.currentUser!.profileImageUrl!))
         nameLabel.text = User.currentUser?.name
         screennameLabel.text = User.currentUser?.screenname
-        bodyTextView.text = ""
+        
+        if (replyTweet != nil) {
+            let screenname = replyTweet!.user!.screenname
+            bodyTextView.text = "@\(screenname!) "
+        } else {
+            bodyTextView.text = ""
+        }
         bodyTextView.becomeFirstResponder()
         
         characterCountLabel.frame = CGRectMake(0, 0, 40, 40)
@@ -58,7 +65,13 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func onTweetButton(sender: AnyObject) {
         if bodyTextView.text != "" {
-            var params = ["status": bodyTextView.text]
+            var params: NSDictionary?
+            if (replyTweet != nil) {
+                let replyTweetId = replyTweet!.id!
+                params = ["status": bodyTextView.text, "in_reply_to_status_id": replyTweetId]
+            } else {
+                params = ["status": bodyTextView.text]
+            }
             TwitterClient.sharedInstance.update(params, completion: { (tweet, error) -> () in
                 self.dismissViewControllerAnimated(true, completion: nil)
             })

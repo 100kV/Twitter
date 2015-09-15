@@ -77,8 +77,20 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         cell.nameLabel.text = tweet.user?.name
         cell.screennameLabel.text = "@\(tweet.user!.screenname!)"
         cell.tweetTextLabel.text = tweet.text
+        
+        cell.replyButton.tag = indexPath.row
+        
+        if (tweet.retweeted == true) {
+            cell.retweetButton.setImage(UIImage(named: "retweet_on.png"), forState: UIControlState.Normal)
+        } else {
+            cell.retweetButton.setImage(UIImage(named: "retweet.png"), forState: UIControlState.Normal)
+        }
+        cell.retweetButton.tag = indexPath.row
+        
         if (tweet.favorited == true) {
             cell.favoritedButton.setImage(UIImage(named: "favorite_on.png"), forState: UIControlState.Normal)
+        } else {
+            cell.favoritedButton.setImage(UIImage(named: "favorite.png"), forState: UIControlState.Normal)
         }
         cell.favoritedButton.tag = indexPath.row
         
@@ -97,29 +109,55 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
 
+    @IBAction func onClickRetweetButton(sender: AnyObject) {
+        let retweetButton = sender as! UIButton
+        var retweet = tweets![retweetButton.tag] as Tweet
+        var params = ["id": retweet.id!]
+        
+        if (retweet.retweeted == true) {
+            if (retweet.retweetId != nil) {
+                params["id"] = retweet.retweetId!
+                TwitterClient.sharedInstance.statusesDestroy(params, completion: { (tweet, error) -> () in
+                    retweetButton.setImage(UIImage(named: "retweet.png"), forState: UIControlState.Normal)
+                    retweet.retweeted = false
+                })
+            }
+        } else {
+            TwitterClient.sharedInstance.statusesRetweets(params, completion: { (tweet, error) -> () in
+                retweetButton.setImage(UIImage(named: "retweet_on.png"), forState: UIControlState.Normal)
+                retweet.retweeted = true
+                retweet.retweetId = tweet?.id
+            })
+        }
+    }
+    
     @IBAction func onClickFavoritedButton(sender: AnyObject) {
         let favoritedButton = sender as! UIButton
-        var tweet = tweets![favoritedButton.tag] as Tweet
-        var params = ["id": tweet.id!]
+        var favoriteTweet = tweets![favoritedButton.tag] as Tweet
+        var params = ["id": favoriteTweet.id!]
         
-        if ((tweet.favorited) == true) {
+        if (favoriteTweet.favorited == true) {
             TwitterClient.sharedInstance.favoritesDestroy(params, completion: { (tweet, error) -> () in
                 favoritedButton.setImage(UIImage(named: "favorite.png"), forState: UIControlState.Normal)
+                favoriteTweet.favorited = false
             })
         } else {
             TwitterClient.sharedInstance.favoritesCreate(params, completion: { (tweet, error) -> () in
                 favoritedButton.setImage(UIImage(named: "favorite_on.png"), forState: UIControlState.Normal)
+                favoriteTweet.favorited = true
             })
         }
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "Reply") {
+            let replyButton = sender as! UIButton
+            let tweet = tweets![replyButton.tag] as Tweet
+            
+            let uiNavigationController = segue.destinationViewController as! UINavigationController
+            let newTweetViewController = uiNavigationController.topViewController as! NewTweetViewController
+            newTweetViewController.replyTweet = tweet
+        }
     }
-    */
 
 }

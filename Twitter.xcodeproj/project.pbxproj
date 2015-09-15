@@ -10,7 +10,6 @@
 		2CE1C43D51A10DDB713F0BF2 /* libPods-Twitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC73D3BA037180C274858C92 /* libPods-Twitter.a */; };
 		99DDE63D1BA61894003B525E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DDE63C1BA61894003B525E /* AppDelegate.swift */; };
 		99DDE63F1BA61894003B525E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DDE63E1BA61894003B525E /* ViewController.swift */; };
-		99DDE6421BA61894003B525E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99DDE6401BA61894003B525E /* Main.storyboard */; };
 		99DDE6441BA61894003B525E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99DDE6431BA61894003B525E /* Images.xcassets */; };
 		99DDE6471BA61894003B525E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99DDE6451BA61894003B525E /* LaunchScreen.xib */; };
 		99DDE6531BA61894003B525E /* TwitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99DDE6521BA61894003B525E /* TwitterTests.swift */; };
@@ -26,6 +25,7 @@
 		99E6C0DA1BA79E77008B2291 /* reply.png in Resources */ = {isa = PBXBuildFile; fileRef = 99E6C0D51BA79E77008B2291 /* reply.png */; };
 		99E6C0DB1BA79E77008B2291 /* favorite_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 99E6C0D61BA79E77008B2291 /* favorite_on.png */; };
 		99E6C0DC1BA79E77008B2291 /* favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 99E6C0D71BA79E77008B2291 /* favorite.png */; };
+		99E6C0DF1BA7CD8D008B2291 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99E6C0DD1BA7CD8D008B2291 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,6 @@
 		99DDE63B1BA61894003B525E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99DDE63C1BA61894003B525E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99DDE63E1BA61894003B525E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		99DDE6411BA61894003B525E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		99DDE6431BA61894003B525E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		99DDE6461BA61894003B525E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		99DDE64C1BA61894003B525E /* TwitterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TwitterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +62,7 @@
 		99E6C0D51BA79E77008B2291 /* reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = reply.png; path = Twitter/reply.png; sourceTree = "<group>"; };
 		99E6C0D61BA79E77008B2291 /* favorite_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favorite_on.png; path = Twitter/favorite_on.png; sourceTree = "<group>"; };
 		99E6C0D71BA79E77008B2291 /* favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = favorite.png; path = Twitter/favorite.png; sourceTree = "<group>"; };
+		99E6C0DE1BA7CD8D008B2291 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B17E6A84CBCDFE87616891DE /* Pods-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
 		DC73D3BA037180C274858C92 /* libPods-Twitter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Twitter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -128,7 +128,6 @@
 				99E6C0C21BA625CF008B2291 /* Models */,
 				99E6C0BF1BA61988008B2291 /* API */,
 				99DDE63C1BA61894003B525E /* AppDelegate.swift */,
-				99DDE6401BA61894003B525E /* Main.storyboard */,
 				99DDE6431BA61894003B525E /* Images.xcassets */,
 				99DDE6451BA61894003B525E /* LaunchScreen.xib */,
 				99DDE63A1BA61894003B525E /* Supporting Files */,
@@ -166,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				99E6C0C01BA619AE008B2291 /* TwitterClient.swift */,
+				99E6C0DD1BA7CD8D008B2291 /* Main.storyboard */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -289,12 +289,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				99E6C0CC1BA67641008B2291 /* Twitter_logo_blue_48.png in Resources */,
-				99DDE6421BA61894003B525E /* Main.storyboard in Resources */,
 				99DDE6471BA61894003B525E /* LaunchScreen.xib in Resources */,
 				99DDE6441BA61894003B525E /* Images.xcassets in Resources */,
 				99E6C0D91BA79E77008B2291 /* retweet.png in Resources */,
 				99E6C0DA1BA79E77008B2291 /* reply.png in Resources */,
 				99E6C0DB1BA79E77008B2291 /* favorite_on.png in Resources */,
+				99E6C0DF1BA7CD8D008B2291 /* Main.storyboard in Resources */,
 				99E6C0DC1BA79E77008B2291 /* favorite.png in Resources */,
 				99E6C0D81BA79E77008B2291 /* retweet_on.png in Resources */,
 			);
@@ -377,20 +377,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		99DDE6401BA61894003B525E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				99DDE6411BA61894003B525E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		99DDE6451BA61894003B525E /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				99DDE6461BA61894003B525E /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		99E6C0DD1BA7CD8D008B2291 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				99E6C0DE1BA7CD8D008B2291 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

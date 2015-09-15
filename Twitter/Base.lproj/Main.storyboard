@@ -97,16 +97,6 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4RV-hI-jkX">
                                                     <rect key="frame" x="64" y="64" width="248" height="16"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6t-4X-fAG">
-                                                            <rect key="frame" x="80" y="0.0" width="19" height="16"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="Tdn-e5-W5V"/>
-                                                                <constraint firstAttribute="width" constant="19" id="rNQ-bN-c2M"/>
-                                                            </constraints>
-                                                            <state key="normal" image="retweet.png">
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
-                                                        </button>
                                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djt-6z-1Ng">
                                                             <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
                                                             <constraints>
@@ -116,6 +106,22 @@
                                                             <state key="normal" image="reply.png">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <connections>
+                                                                <segue destination="Zrb-p7-bYu" kind="modal" identifier="Reply" id="5XE-ai-Wus"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6t-4X-fAG">
+                                                            <rect key="frame" x="80" y="0.0" width="19" height="16"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="Tdn-e5-W5V"/>
+                                                                <constraint firstAttribute="width" constant="19" id="rNQ-bN-c2M"/>
+                                                            </constraints>
+                                                            <state key="normal" image="retweet.png">
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="onClickRetweetButton:" destination="bNd-79-ArW" eventType="touchUpInside" id="Ty9-UN-8m4"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tm0-b2-Ftt">
                                                             <rect key="frame" x="163" y="0.0" width="16" height="16"/>
@@ -263,7 +269,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8vB-pL-TPB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2639" y="319"/>
+            <point key="canvasLocation" x="2564" y="319"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8hf-rY-jGu">
@@ -306,6 +312,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zrb-p7-bYu" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Str-04-Q3z"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="U8N-wM-K56">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -331,4 +338,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="5XE-ai-Wus"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -432,6 +432,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="onClickRetweetButton:" destination="hHP-Rc-1nI" eventType="touchUpInside" id="Bkf-le-e9D"/>
                                     <action selector="onClickRetweetButton:" destination="bNd-79-ArW" eventType="touchUpInside" id="Lhr-dm-AZX"/>
                                 </connections>
                             </button>
@@ -445,6 +446,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="onClickFavoritedButton:" destination="hHP-Rc-1nI" eventType="touchUpInside" id="D74-UR-EcB"/>
                                     <action selector="onClickFavoritedButton:" destination="bNd-79-ArW" eventType="touchUpInside" id="Ef1-Qt-QW0"/>
                                 </connections>
                             </button>

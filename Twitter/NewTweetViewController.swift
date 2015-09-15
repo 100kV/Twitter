@@ -32,6 +32,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
         if (replyTweet != nil) {
             let screenname = replyTweet!.user!.screenname
             bodyTextView.text = "@\(screenname!) "
+            tweetBarButtonItem.title = "Reply"
         } else {
             bodyTextView.text = ""
         }
@@ -41,7 +42,7 @@ class NewTweetViewController: UIViewController, UITextViewDelegate {
         characterCountLabel.text = "\(TWEET_MAX_CHARACTERS - count(bodyTextView.text.utf16))"
         characterCountLabel.textColor = UIColor.grayColor()
         var rightBarButtonItemCharacterCount: UIBarButtonItem = UIBarButtonItem(customView: characterCountLabel)
-        
+
         self.navigationItem.setRightBarButtonItems([tweetBarButtonItem, rightBarButtonItemCharacterCount], animated: true)
     }
 
